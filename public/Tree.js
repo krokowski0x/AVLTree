@@ -5,17 +5,11 @@ class Tree {
     this.height = 0;
   }
 
-  compare(a, b) {
-    
-  }
+  compare (a, b) { return a > b ? 1 : a < b ? -1 : 0 }
 
-  get root() {
+  get root() { return this.root }
 
-  }
-
-  get treeHeight() {
-
-  }
+  get treeHeight() { return this.height }
 
   insertNode(key, data) {
 
@@ -29,15 +23,10 @@ class Tree {
 
   }
 
-  preOrder() {
+  preOrder() { this.root.preOrderTraverse() }
 
-  }
+  inOrder() { this.root.inOrderTraverse() }
+  
+  postOrder() { this.root.postOrderTraverse() }
 
-  inOrder() {
-
-  }
-
-  postOrder() {
-
-  }
 }

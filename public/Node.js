@@ -17,4 +17,37 @@ class Node {
   rotateLeft() {
 
   }
+
+  preOrderTraverse() {
+
+    console.log(this.value);
+
+    if (this.left)
+      this.left.preOrderTraverse();
+
+    if (this.right)
+      this.right.preOrderTraverse();
+  }
+
+  inOrderTraverse() {
+
+    if (this.left)
+      this.left.inOrderTraverse();
+
+    console.log(this.value);
+
+    if (this.right)
+      this.right.inOrderTraverse();
+  }
+
+  postOrderTraverse() {
+
+    if (this.left)
+      this.left.postOrderTraverse();
+
+    if (this.right)
+      this.right.postOrderTraverse();
+
+    console.log(this.value);
+  }
 }
