@@ -19,14 +19,23 @@ class Tree {
 
   }
 
-  find(key) {
+  find(nodeKey) {
+    let childNode = this.root;
 
+    while(childNode && nodeKey !== childNode.key) {
+      if (this.compare(nodeKey, childNode.key) < 0)
+        childNode = childNode.left;
+      else
+        childNode = childNode.right;
+    }
+
+    return childNode;
   }
 
   preOrder() { this.root.preOrderTraverse() }
 
   inOrder() { this.root.inOrderTraverse() }
-  
+
   postOrder() { this.root.postOrderTraverse() }
 
 }
