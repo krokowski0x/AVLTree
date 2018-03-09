@@ -5,12 +5,12 @@ class Node {
     this.right = null;
     this.parent = null;
     this.height = 0;
-    this.distance = 2;
     this.balanceFactor = 0;
     this.key = key;
     this.value = value;
     this.x = x;
     this.y = y;
+    this.drawn = false;
   }
 
   rotateRight() {
@@ -74,27 +74,21 @@ class Node {
   }
 
   preOrderTraverse() {
+    if (!this.drawn)
+      this.draw();
 
     console.log(this);
-    fill(255);
-    noStroke();
-    //line(this.parent.x, this.parent.y, this.x, this.y);
-    textAlign(CENTER);
-    textSize(14);
-    text(this.key, this.x, this.y + 5);
-    stroke(255);
-    noFill();
-    ellipse(this.x, this.y, 30, 30);
 
     if (this.left)
       this.left.preOrderTraverse();
 
     if (this.right)
       this.right.preOrderTraverse();
-
   }
 
   inOrderTraverse() {
+    if (!this.drawn)
+      this.draw();
 
     if (this.left)
       this.left.inOrderTraverse();
@@ -106,6 +100,8 @@ class Node {
   }
 
   postOrderTraverse() {
+    if (!this.drawn)
+      this.draw();
 
     if (this.left)
       this.left.postOrderTraverse();
@@ -114,5 +110,21 @@ class Node {
       this.right.postOrderTraverse();
 
     console.log(this);
+  }
+
+  draw() {
+
+      const radius = 15;
+      stroke(100);
+      if (this.height > 0)
+        line(this.parent.x, this.parent.y + radius, this.x, this.y - radius);
+      stroke(255);
+      noFill();
+      ellipse(this.x, this.y, 2*radius, 2*radius);
+      fill(255);
+      textAlign(CENTER);
+      textSize(11);
+      text(this.key, this.x, this.y + 3);
+
   }
 }
