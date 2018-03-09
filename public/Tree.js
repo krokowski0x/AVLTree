@@ -35,20 +35,20 @@ class Tree {
       if (this.compare(key, parent.key) === -1) {
         if (!parent.left) {
           parent.left = newNode;
-          newNode.x = parent.x - (width / pow(2, newNode.distance));
+          newNode.x = parent.x - (width / pow(2, newNode.height+2));
           newNode.y = parent.y + (height / 12);
           newNode.parent = parent;
         }
-        newNode.distance++;
+        newNode.height++;
         parent = parent.left;
     } else {
         if (!parent.right) {
           parent.right = newNode;
-          newNode.x = parent.x + (width / pow(2, newNode.distance));
+          newNode.x = parent.x + (width / pow(2, newNode.height+2));
           newNode.y = parent.y + (height / 12);
           newNode.parent = parent;
         }
-        newNode.distance++;
+        newNode.height++;
         parent = parent.right;
       }
     }
@@ -61,7 +61,6 @@ class Tree {
     //   parent.balanceFactor = 1;
     // else
     //   parent.balanceFactor = -1;
-
 
   }
 
