@@ -1,13 +1,16 @@
 class Node {
 
-  constructor(key, value) {
+  constructor(key, value, x, y) {
     this.left = null;
     this.right = null;
     this.parent = null;
     this.height = 0;
+    this.distance = 2;
     this.balanceFactor = 0;
     this.key = key;
     this.value = value;
+    this.x = x;
+    this.y = y;
   }
 
   rotateRight() {
@@ -72,13 +75,23 @@ class Node {
 
   preOrderTraverse() {
 
-    console.log(this.value);
+    console.log(this);
+    fill(255);
+    noStroke();
+    //line(this.parent.x, this.parent.y, this.x, this.y);
+    textAlign(CENTER);
+    textSize(14);
+    text(this.key, this.x, this.y + 5);
+    stroke(255);
+    noFill();
+    ellipse(this.x, this.y, 30, 30);
 
     if (this.left)
       this.left.preOrderTraverse();
 
     if (this.right)
       this.right.preOrderTraverse();
+
   }
 
   inOrderTraverse() {
@@ -86,7 +99,7 @@ class Node {
     if (this.left)
       this.left.inOrderTraverse();
 
-    console.log(this.value);
+    console.log(this);
 
     if (this.right)
       this.right.inOrderTraverse();
@@ -100,6 +113,6 @@ class Node {
     if (this.right)
       this.right.postOrderTraverse();
 
-    console.log(this.value);
+    console.log(this);
   }
 }
