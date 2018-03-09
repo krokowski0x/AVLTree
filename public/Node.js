@@ -11,11 +11,63 @@ class Node {
   }
 
   rotateRight() {
+    let leftNode = this.left;
 
+    this.left = leftNode.right;
+    if (this.left) this.left.parent = this;
+
+    leftNode.right = this;
+    leftNode.parent = this.parent;
+    this.parent = leftNode;
+
+    if (leftNode.parent) {
+      if (leftNode.parent.left === this) {
+        leftNode.parent.left = leftNode;
+      } else {
+        leftNode.parent.right = leftNode;
+      }
+    } else {
+      this.root = leftNode;
+    }
+
+    if (leftNode.balanceFactor === 1) {
+      this.balanceFactor = leftNode.balanceFactor = 0;
+    } else {
+      this.balanceFactor = 1;
+      leftNode.balanceFactor = -1;
+    }
+
+    return leftNode;
   }
 
   rotateLeft() {
+    let rightNode = this.right;
 
+    this.right = rightNode.left;
+    if (this.right) this.right.parent = this;
+
+    rightNode.left = this;
+    rightNode.parent = this.parent;
+    this.parent = rightNode;
+
+    if (rightNode.parent) {
+      if (rightNode.parent.left === this) {
+        rightNode.parent.left = rightNode;
+      } else {
+        rightNode.parent.right = rightNode;
+      }
+    } else {
+      this.root = rightNode;
+    }
+
+    if (rightNode.balanceFactor === -1) {
+      this.balanceFactor = rightNode.balanceFactor = 0;
+    } else {
+      this.balanceFactor = -1;
+      rightNode.balanceFactor = 1;
+    }
+
+    return rightNode;
   }
 
   preOrderTraverse() {
