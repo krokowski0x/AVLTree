@@ -1,0 +1,65 @@
+* {
+  color: #FFF;
+  font-family: sans-serif;
+}
+
+.user-interface {
+  float: right;
+  border: 2px solid white;
+  border-radius: 10px;
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.insertBtn, .removeBtn {
+  font-weight: bold;
+  padding: 5px;
+  font-size: 15px;
+  border-radius: 3px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.insertBtn {
+  border: 2px solid #58ef6f;
+}
+
+.insertBtn:hover {
+  background-color: #58ef6f;
+  color: white;
+}
+
+.removeBtn {
+  border: 2px solid #F15C5C;
+}
+
+.removeBtn:hover {
+  background-color: #F15C5C;
+  color: white;
+}
+
+input[type="text"] {
+  float: left;
+  border: 1px solid #CCC;
+    color: #888;
+    height: 20px;
+    line-height:15px;
+    padding: 5px 0px 5px 5px;
+    border-radius: 4px;
+    color: black;
+}
+
+.insert-node {
+  display: grid;
+  grid-template-columns: 25% 25% 40%;
+  grid-gap: 5%;
+  margin: 2%;
+}
+
+.remove-node {
+  display: grid;
+  grid-template-columns: 55% 40%;
+  grid-gap: 5%;
+    margin: 2%;
+}
