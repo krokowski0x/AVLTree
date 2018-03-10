@@ -2,13 +2,27 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>
     <script language="javascript" type="text/javascript" src="Node.js"></script>
     <script language="javascript" type="text/javascript" src="Tree.js"></script>
-    <script language="javascript" type="text/javascript" src="main.js"></script>
   </head>
 
   <body>
+    <div class="user-interface">
+      <h1>Options</h1>
+      <hr />
+      <form class="options">
+        <div class="insert-node">
+          <input type="text" class="key" placeholder="Key">
+          <input type="text" class="value" placeholder="Value">
+          <input type="submit" class="btn" value="Insert node">
+        </div>
+      </form>
+    </div>
+    <script language="javascript" type="text/javascript" src="main.js"></script>
   </body>
 </html>
