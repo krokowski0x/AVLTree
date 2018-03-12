@@ -13,24 +13,25 @@ class Node {
     //this.drawn = false;
   }
 
-  rotateRight() {
+  rotateLL(root) {
     let leftNode = this.left;
+    let parent = this.parent;
 
     this.left = leftNode.right;
     if (this.left) this.left.parent = this;
 
     leftNode.right = this;
-    leftNode.parent = this.parent;
+    leftNode.parent = parent;
     this.parent = leftNode;
 
-    if (leftNode.parent) {
-      if (leftNode.parent.left === this) {
-        leftNode.parent.left = leftNode;
+    if (parent) {
+      if (parent.left === this) {
+        parent.left = leftNode;
       } else {
-        leftNode.parent.right = leftNode;
+        parent.right = leftNode;
       }
     } else {
-      this.root = leftNode;
+      root = leftNode;
     }
 
     if (leftNode.balanceFactor === 1) {
@@ -43,24 +44,25 @@ class Node {
     return leftNode;
   }
 
-  rotateLeft() {
+  rotateRR(root) {
     let rightNode = this.right;
+    let parent = this.parent;
 
     this.right = rightNode.left;
     if (this.right) this.right.parent = this;
 
     rightNode.left = this;
-    rightNode.parent = this.parent;
+    rightNode.parent = parent;
     this.parent = rightNode;
 
-    if (rightNode.parent) {
-      if (rightNode.parent.left === this) {
-        rightNode.parent.left = rightNode;
+    if (parent) {
+      if (parent.left === this) {
+        parent.left = rightNode;
       } else {
-        rightNode.parent.right = rightNode;
+        parent.right = rightNode;
       }
     } else {
-      this.root = rightNode;
+      root = rightNode;
     }
 
     if (rightNode.balanceFactor === -1) {
@@ -71,6 +73,84 @@ class Node {
     }
 
     return rightNode;
+  }
+
+  rotateRL(root) {
+    let rightNode = this.right;
+    let tempNode = rightNode.left;
+    let parent = this.parent;
+
+    rightNode.left = tempNode.right;
+    if (rightNode.left)
+      rightNode.left.parent = rightNode;
+
+    this.right = tempNode.left;
+    if (this.right)
+      this.right.parent = this;
+
+    tempNode.left = this;
+    tempNode.right = rightNode;
+    this.parent = rightNode.parent = tempNode;
+    tempNode.parent = parent;
+
+    if (parent)
+      if (parent.left === this)
+        parent.left = tempNode;
+      else
+        parent.right = tempNode;
+    else
+      root = tempNode;
+
+    if (tempNode.balanceFactor === -1)
+      this.balanceFactor = 1;
+    else
+      this.balanceFactor = 0;
+
+    if (tempNode.balanceFactor === 1)
+      rightNode.balanceFactor = -1;
+    else
+      rightNode.balanceFactor = 0;
+
+    tempNode.balanceFactor = 0;
+  }
+
+  rotateLR(root) {
+    let leftNode = this.left;
+    let tempNode = leftNode.right;
+    let parent = this.parent;
+
+    leftNode.left = tempNode.right;
+    if (leftNode.left)
+      leftNode.left.parent = leftNode;
+
+    this.right = tempNode.left;
+    if (this.right)
+      this.right.parent = this;
+
+    tempNode.left = this;
+    tempNode.right = leftNode;
+    this.parent = leftNode.parent = tempNode;
+    tempNode.parent = parent;
+
+    if (parent)
+      if (parent.left === this)
+        parent.left = tempNode;
+      else
+        parent.right = tempNode;
+    else
+      root = tempNode;
+
+    if (tempNode.balanceFactor === -1)
+      this.balanceFactor = 1;
+    else
+      this.balanceFactor = 0;
+
+    if (tempNode.balanceFactor === 1)
+      leftNode.balanceFactor = -1;
+    else
+      leftNode.balanceFactor = 0;
+
+    tempNode.balanceFactor = 0;
   }
 
   min() {
