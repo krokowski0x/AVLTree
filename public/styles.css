@@ -19,7 +19,7 @@ h1 {
   margin: 0;
 }
 
-.insertBtn, .removeBtn, .traverseBtn {
+.insertBtn, .removeBtn, .traverseBtn, .findBtn {
   font-weight: bold;
   padding: 5px;
   font-size: 15px;
@@ -46,6 +46,15 @@ h1 {
   color: white;
 }
 
+.findBtn {
+  border: 2px solid #1061e5;
+}
+
+.findBtn:hover {
+  background-color: #1061e5;
+  color: white;
+}
+
 input[type="text"] {
   float: left;
   border: 1px solid #CCC;
@@ -64,7 +73,7 @@ input[type="text"] {
   margin: 2%;
 }
 
-.remove-node {
+.remove-node, .find-node {
   display: grid;
   grid-template-columns: 55% 40%;
   grid-gap: 5%;
