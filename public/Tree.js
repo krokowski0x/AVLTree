@@ -3,6 +3,7 @@ class Tree {
   constructor() {
     this.root = null;
     this.height = 0;
+    this.nodes = [];
   }
 
   compare (a, b) { return a > b ? 1 : a < b ? -1 : 0 }
@@ -16,6 +17,10 @@ class Tree {
   // set treeHeight(h) { this.height = h }
 
   insertNode(key, data) {
+    if (this.nodes.includes(key))
+      return 0;
+    this.nodes.push(key);
+    this.nodes.sort((a,b) => this.compare(a, b));
     let newNode = new Node(key, data);
 
     // Phase 1 - regular PST insertion
@@ -52,20 +57,56 @@ class Tree {
         parent = parent.right;
       }
     }
-
     // Phase 2 - Rebalancing tree
-    // if (parent.balanceFactor)
-    //   parent.balanceFactor = 0;
-    //
-    // if (parent.left === newNode)
-    //   parent.balanceFactor = 1;
-    // else
-    //   parent.balanceFactor = -1;
+    clear();
+    background(51);
+    this.preOrder();
+  }
 
+  minValueNode() {
+    var current = this.root;
+    while (current.left) {
+      current = current.left;
+    }
+    return current;
   }
 
   removeNode(key) {
+    let node = this.find(key);
+    let y = null;
+    let z = null;
 
+    if (node) {
+      if (!node.left || !node.right)
+        y = node;
+      else
+        y = node.next();
+
+      if (y.left)
+        z = y.left;
+      else
+        z = y.right;
+
+      if (z)
+        z.parent = y.parent;
+
+      if (!y.parent)
+        this.root = z;
+      else if (y === y.parent.left)
+        y.parent.left = z;
+      else
+        y.parent.right = z;
+
+      if (y !== node)
+        node.key = y.key;
+
+      y.right = y.left = y.value = null;
+    }
+
+    //this.nodes.splice(this.nodes.indexOf(key), 1);
+    clear();
+    background(51);
+    this.preOrder();
   }
 
   find(nodeKey) {
