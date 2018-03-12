@@ -16,13 +16,26 @@ function draw() {
 
 }
 
-document.getElementsByClassName('btn')[0]
+// Event handlers
+document.getElementsByClassName('insertBtn')[0]
   .addEventListener('click', function(e) {
 
-    let key = document.getElementsByClassName('key')[0].value;
-    console.log(key);
-    let val = document.getElementsByClassName('value')[0].value;
-    console.log(val);
-    tree.insertNode(key, val);
     e.preventDefault();
+
+    let key = document.getElementsByClassName('key1')[0].value;
+    let val = document.getElementsByClassName('value')[0].value;
+    tree.insertNode(key, val);
+
+    var node = document.createElement("LI");
+    var textnode = document.createTextNode(key);
+    node.appendChild(textnode);
+    document.getElementsByTagName("FORM")[0].appendChild(node);
   });
+
+  document.getElementsByClassName('removeBtn')[0]
+    .addEventListener('click', function(e) {
+      e.preventDefault();
+
+      let key = parseInt(document.getElementsByClassName('key2')[0].value);
+      tree.removeNode(key);
+    });
