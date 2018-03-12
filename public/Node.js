@@ -193,7 +193,7 @@ class Node {
   inOrderTraverse() {
     if (this.left)
       this.left.inOrderTraverse();
-    if (!this.drawn)
+    //if (!this.drawn)
       this.draw();
     if (this.right)
       this.right.inOrderTraverse();
@@ -204,7 +204,7 @@ class Node {
       this.left.postOrderTraverse();
     if (this.right)
       this.right.postOrderTraverse();
-    if (!this.drawn)
+    //if (!this.drawn)
       this.draw();
   }
 
@@ -213,6 +213,7 @@ class Node {
     const radius = 15;
     stroke(100);
 
+    // This keeps track of right levels (coords update on deletion)
     if (this.parent && this.height - 1 !== this.parent.height) {
       this.height--;
       this.y = this.parent.y + (height / 12);
@@ -222,6 +223,7 @@ class Node {
         this.x = this.parent.x - (width / pow(2, this.height+1));
     }
 
+    // Exclude root (has no parent)
     if (this.height > 0)
       line(this.parent.x, this.parent.y + radius, this.x, this.y - radius);
 

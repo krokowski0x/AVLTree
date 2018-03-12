@@ -17,10 +17,13 @@ class Tree {
   // set treeHeight(h) { this.height = h }
 
   insertNode(key, data) {
+    // Don't insert if it's duplicate
     if (this.nodes.includes(key))
       return 0;
-    this.nodes.push(key);
+    // Keep track of nodes in an array
+    this.nodes.push(parseInt(key));
     this.nodes.sort((a,b) => this.compare(a, b));
+
     let newNode = new Node(key, data);
 
     // Phase 1 - regular PST insertion
@@ -37,6 +40,7 @@ class Tree {
 
     // Until newNode is not attached
     while (!newNode.parent) {
+      // Go left or right, update coords and attach to parent
       if (this.compare(key, parent.key) === -1) {
         if (!parent.left) {
           parent.left = newNode;
@@ -57,12 +61,60 @@ class Tree {
         parent = parent.right;
       }
     }
-    // Phase 2 - Rebalancing tree
+    //
+    // // Phase 2 - Rebalancing tree
+    // if (parent.balanceFactor)
+    //   parent.balanceFactor = 0;
+    // else {
+    //   if (parent.left === newNode)
+    //     parent.balanceFactor = 1;
+    //   else
+    //     parent.balanceFactor = -1;
+    //
+    //   let gParent = parent.parent;
+    //   let t =false;
+    //
+    //   while (gParent) {
+    //     if (gParent.balanceFactor) {
+    //       t = true;
+    //       break;
+    //     }
+    //
+    //     if (gParent.left === parent)
+    //       gParent.balanceFactor = 1;
+    //     else
+    //       gParent.balanceFactor = -1;
+    //
+    //     parent = gParent;
+    //     gParent = gParent.parent;
+    //   }
+    //
+    //   if (t) {
+    //     if (gParent.balanceFactor === 1) {
+    //       if (gParent.right === parent)
+    //         gParent.balanceFactor = 0;
+    //       else if (gParent.balanceFactor === -1)
+    //         gParent.rotateLR(this.root);
+    //       else
+    //         gParent.rotateLL(this.root);
+    //     }
+    //     else {
+    //       if (gParent.left === parent)
+    //         gParent.balanceFactor = 0;
+    //       else if (gParent.balanceFactor === 1)
+    //         gParent.rotateRL(this.root);
+    //       else
+    //         gParent.rotateRR(this.root);
+    //     }
+    //   }
+    // }
+
     clear();
     background(51);
     this.preOrder();
   }
 
+  // Current node successor
   minValueNode() {
     var current = this.root;
     while (current.left) {
@@ -73,20 +125,23 @@ class Tree {
 
   removeNode(key) {
     let node = this.find(key);
-    let y = null;
-    let z = null;
+    let y = null; // Act as node
+    let z = null; // Act as new node child
 
+    // If node has one or no children
     if (node) {
       if (!node.left || !node.right)
         y = node;
       else
         y = node.next();
 
+      // Append new child
       if (y.left)
         z = y.left;
       else
         z = y.right;
 
+      // Swap these nodes
       if (z)
         z.parent = y.parent;
 
@@ -100,10 +155,13 @@ class Tree {
       if (y !== node)
         node.key = y.key;
 
-      y.right = y.left = y.value = null;
+      // Couldn't just delete object in ES6
+      delete y.key;
+      delete y.value;
     }
 
-    //this.nodes.splice(this.nodes.indexOf(key), 1);
+    // Keep track of nodes in an array
+    this.nodes.splice(this.nodes.indexOf(key), 1);
     clear();
     background(51);
     this.preOrder();
