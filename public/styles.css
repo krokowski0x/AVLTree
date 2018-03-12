@@ -4,7 +4,9 @@
 }
 
 .user-interface {
-  float: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
   border: 2px solid white;
   border-radius: 10px;
   width: 300px;
@@ -12,7 +14,12 @@
   padding: 10px;
 }
 
-.insertBtn, .removeBtn {
+h1 {
+  padding: 0;
+  margin: 0;
+}
+
+.insertBtn, .removeBtn, .traverseBtn {
   font-weight: bold;
   padding: 5px;
   font-size: 15px;
@@ -42,12 +49,12 @@
 input[type="text"] {
   float: left;
   border: 1px solid #CCC;
-    color: #888;
-    height: 20px;
-    line-height:15px;
-    padding: 5px 0px 5px 5px;
-    border-radius: 4px;
-    color: black;
+  color: #888;
+  height: 20px;
+  line-height: 15px;
+  padding: 5px;
+  border-radius: 4px;
+  color: black;
 }
 
 .insert-node {
@@ -61,5 +68,32 @@ input[type="text"] {
   display: grid;
   grid-template-columns: 55% 40%;
   grid-gap: 5%;
-    margin: 2%;
+  margin: 2%;
+}
+
+.traverses {
+  display: grid;
+  grid-template-columns: 80% 15%;
+  grid-gap: 5%;
+  margin: 2%;
+}
+
+.btn-group button {
+    background-color: #1061e5;
+    border: 1px solid #10a1e5;
+    border-radius: 3px;
+    color: white;
+    height: 30px;
+    padding: 5px;
+    cursor: pointer;
+    float: left;
+}
+
+.traverseBtn {
+  border: 2px solid #1061e5;
+}
+
+.traverseBtn:hover {
+  background-color: #1061e5;
+  color: white;
 }
