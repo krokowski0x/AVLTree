@@ -73,8 +73,32 @@ class Node {
     return rightNode;
   }
 
+  min() {
+    let node = this;
+
+    if (node)
+      while (node.left)
+        node = node.left;
+    return node;
+  }
+
   next() {
-    return this.left ? this.left : this.right;
+    let node = this;
+    let parent = null;
+
+    if (node) {
+      if (node.right)
+        return node.right.min();
+      else {
+        parent = node.parent;
+        while (parent && (node === parent.right)) {
+          node = parent;
+          parent = parent.parent;
+        }
+        return parent;
+      }
+    }
+    return node;
   }
 
   preOrderTraverse() {
@@ -108,6 +132,15 @@ class Node {
 
     const radius = 15;
     stroke(100);
+
+    if (this.parent && this.height - 1 !== this.parent.height) {
+      this.height--;
+      this.y = this.parent.y + (height / 12);
+      if (this === this.parent.right)
+        this.x = this.parent.x + (width / pow(2, this.height+1));
+      else
+        this.x = this.parent.x - (width / pow(2, this.height+1));
+    }
 
     if (this.height > 0)
       line(this.parent.x, this.parent.y + radius, this.x, this.y - radius);
