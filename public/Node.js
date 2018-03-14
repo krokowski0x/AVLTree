@@ -181,13 +181,13 @@ class Node {
     return node;
   }
 
-  preOrderTraverse() {
+  preOrderTraverse(toggleValues) {
     //if (!this.drawn)
-      this.draw();
+      this.draw(toggleValues);
     if (this.left)
-      this.left.preOrderTraverse();
+      this.left.preOrderTraverse(toggleValues);
     if (this.right)
-      this.right.preOrderTraverse();
+      this.right.preOrderTraverse(toggleValues);
   }
 
   inOrderTraverse() {
@@ -208,9 +208,9 @@ class Node {
       this.draw();
   }
 
-  draw() {
+  draw(toggleValues) {
 
-    const radius = 15;
+    const radius = 20;
     stroke(100);
 
     // This keeps track of right levels (coords update on deletion)
@@ -228,14 +228,21 @@ class Node {
       line(this.parent.x, this.parent.y + radius, this.x, this.y - radius);
 
     stroke(255);
+    strokeWeight(3);
     noFill();
     ellipse(this.x, this.y, 2*radius, 2*radius);
 
     fill(255);
     textAlign(CENTER);
     strokeWeight(0);
-    textSize(12);
-    text(this.key, this.x, this.y + 3);
+    textSize(16);
+    text(this.key, this.x, this.y + 4);
+    if (toggleValues) {
+      if (this.parent && this.parent.right === this )
+        text(this.value, this.x + 50, this.y + 4);
+      else
+        text(this.value, this.x - 50, this.y + 4);
+    }
     strokeWeight(1);
     //this.drawn = true;
   }
