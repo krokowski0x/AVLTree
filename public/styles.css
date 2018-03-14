@@ -138,44 +138,55 @@ input[type="text"] {
 /* Animation trigger button */
 .traverses {
   display: grid;
-  grid-template-columns: 85% 13%;
-  grid-gap: 2%;
+  grid-template-rows: 50% 50%;
   margin: 4% 2%;
 }
 
-.btn-group button {
-    background-color: grey;
-    border: 0;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    height: 30px;
-    cursor: pointer;
-    float: left;
+input[type=radio] {
+  position: absolute;
+  visibility: hidden;
+  display: none;
 }
 
-.btn-group button:active {
-  background-color: #515151;
+label {
+  color: white;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+input[type=radio]:checked + label{
+  color: white;
+  background: #e91e63;
+}
+
+.radio-group {
+  border: solid 2px #e91e63;
+  display: inline-block;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .traverseBtn {
-  border: 2px solid #515151;
+  border: 2px solid #e91e63;
+  margin-top: 10px;
 }
 
 .traverseBtn:hover {
-  background-color: #515151;
+  background-color: #e91e63;
   color: white;
 }
 
 /* Tree information */
 table {
   width: 96%;
-  border: 1px solid white;
+  border: 2px solid white;
   border-radius: 5px;
-  margin: 2%;
+  margin: 5% 2%;
 }
 
 th {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 2px solid white;
   padding: 4%;
 }
