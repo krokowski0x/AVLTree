@@ -12,7 +12,14 @@
 
   <body>
     <div class="user-interface">
-      <h1>Options</h1>
+      <div class="options-header">
+        <h1>Options</h1>
+        <p>Values</p>
+        <div class="onoffswitch">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
+          <label class="onoffswitch-label" for="myonoffswitch"></label>
+        </div>
+      </div>
       <hr />
       <form class="options">
         <div class="insert-node">
@@ -38,6 +45,8 @@
           <input type="submit" class="traverseBtn" value="GO">
         </div>
       </form>
+      <table class="tree-data">
+      </table>
     </div>
     <script language="javascript" type="text/javascript" src="main.js"></script>
   </body>
