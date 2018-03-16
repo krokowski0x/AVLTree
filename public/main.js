@@ -20,16 +20,24 @@ function draw() {
 }
 
 // Event handlers
+document.getElementsByClassName('onoffswitch-label')[0]
+  .addEventListener('click', function(e) {
+    toggleValues = !toggleValues;
+    clear();
+    background(51);
+    tree.preOrder(toggleValues);
+  });
+
 document.getElementsByClassName('insertBtn')[0]
   .addEventListener('click', function(e) {
 
     e.preventDefault();
 
-    let key = document.getElementsByClassName('key1')[0].value;
+    let key = document.getElementsByClassName('key')[0].value;
     let val = document.getElementsByClassName('value')[0].value;
     tree.insertNode(key, val);
 
-    document.getElementsByClassName('key1')[0].value = '';
+    document.getElementsByClassName('key')[0].value = '';
     document.getElementsByClassName('value')[0].value = '';
   });
 
@@ -37,10 +45,10 @@ document.getElementsByClassName('removeBtn')[0]
   .addEventListener('click', function(e) {
     e.preventDefault();
 
-    let key = parseInt(document.getElementsByClassName('key2')[0].value);
+    let key = parseInt(document.getElementsByClassName('key')[1].value);
     tree.removeNode(key);
 
-    document.getElementsByClassName('key2')[0].value = '';
+    document.getElementsByClassName('key')[1].value = '';
   });
 
 document.getElementsByClassName('findBtn')[0]
@@ -53,24 +61,17 @@ document.getElementsByClassName('findBtn')[0]
       tree.preOrder();
     }
 
-    let key = parseInt(document.getElementsByClassName('key3')[0].value);
+    let key = parseInt(document.getElementsByClassName('key')[2].value);
     let node = tree.find(key);
-    strokeWeight(3);
-    stroke('green');
+    strokeWeight(4);
+    stroke('#49E845');
     noFill();
     ellipse(node.x, node.y, 40, 40);
 
-    document.getElementsByClassName('key3')[0].value = '';
+    document.getElementsByClassName('key')[2].value = '';
     previousKey = true;
   });
 
-document.getElementsByClassName('onoffswitch-label')[0]
-  .addEventListener('click', function(e) {
-    toggleValues = !toggleValues;
-    clear();
-    background(51);
-    tree.preOrder(toggleValues);
-  });
 
 function updateInfo() {
   let info = document.getElementsByClassName('tree-data')[0];
