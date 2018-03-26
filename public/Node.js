@@ -10,12 +10,41 @@ class Node {
     this.value = value;
     this.x = x;
     this.y = y;
-    //this.drawn = false;
   }
+
+
+  getHeight() {
+    if (this.height > maxH)
+      maxH = this.height;
+    if (this.left)
+      this.left.getHeight();
+    if (this.right)
+      this.right.getHeight();
+  };
+
+  getBalance() {
+    let lh = this.height;
+    let rh = this.height;
+    if (this.left) {
+      this.left.getHeight();
+      lh = maxH;
+      maxH = 0;
+    }
+    if (this.right) {
+      this.right.getHeight();
+      rh = maxH;
+      maxH = 0;
+    }
+    return lh - rh;
+  };
 
   rotateLL(root) {
     let leftNode = this.left;
     let parent = this.parent;
+
+    this.height++;
+    leftNode.height--;
+    leftNode.left.height--;
 
     this.left = leftNode.right;
     if (this.left) this.left.parent = this;
@@ -34,19 +63,16 @@ class Node {
       root = leftNode;
     }
 
-    if (leftNode.balanceFactor === 1) {
-      this.balanceFactor = leftNode.balanceFactor = 0;
-    } else {
-      this.balanceFactor = 1;
-      leftNode.balanceFactor = -1;
-    }
-
-    return leftNode;
+    return root;
   }
 
   rotateRR(root) {
     let rightNode = this.right;
     let parent = this.parent;
+
+    this.height++;
+    rightNode.height--;
+    rightNode.right.height--;
 
     this.right = rightNode.left;
     if (this.right) this.right.parent = this;
@@ -65,20 +91,16 @@ class Node {
       root = rightNode;
     }
 
-    if (rightNode.balanceFactor === -1) {
-      this.balanceFactor = rightNode.balanceFactor = 0;
-    } else {
-      this.balanceFactor = -1;
-      rightNode.balanceFactor = 1;
-    }
-
-    return rightNode;
+    return root;
   }
 
   rotateRL(root) {
     let rightNode = this.right;
     let tempNode = rightNode.left;
     let parent = this.parent;
+
+    this.height++;
+    tempNode.height -=2;
 
     rightNode.left = tempNode.right;
     if (rightNode.left)
@@ -101,17 +123,7 @@ class Node {
     else
       root = tempNode;
 
-    if (tempNode.balanceFactor === -1)
-      this.balanceFactor = 1;
-    else
-      this.balanceFactor = 0;
-
-    if (tempNode.balanceFactor === 1)
-      rightNode.balanceFactor = -1;
-    else
-      rightNode.balanceFactor = 0;
-
-    tempNode.balanceFactor = 0;
+    return root;
   }
 
   rotateLR(root) {
@@ -119,16 +131,19 @@ class Node {
     let tempNode = leftNode.right;
     let parent = this.parent;
 
-    leftNode.left = tempNode.right;
-    if (leftNode.left)
-      leftNode.left.parent = leftNode;
+    this.height++;
+    tempNode.height -=2;
 
-    this.right = tempNode.left;
-    if (this.right)
-      this.right.parent = this;
+    leftNode.right = tempNode.left;
+    if (leftNode.right)
+      leftNode.right.parent = leftNode;
 
-    tempNode.left = this;
-    tempNode.right = leftNode;
+    this.left = tempNode.right;
+    if (this.left)
+      this.left.parent = this;
+
+    tempNode.right = this;
+    tempNode.left = leftNode;
     this.parent = leftNode.parent = tempNode;
     tempNode.parent = parent;
 
@@ -140,17 +155,7 @@ class Node {
     else
       root = tempNode;
 
-    if (tempNode.balanceFactor === -1)
-      this.balanceFactor = 1;
-    else
-      this.balanceFactor = 0;
-
-    if (tempNode.balanceFactor === 1)
-      leftNode.balanceFactor = -1;
-    else
-      leftNode.balanceFactor = 0;
-
-    tempNode.balanceFactor = 0;
+    return root;
   }
 
   min() {
@@ -181,20 +186,35 @@ class Node {
     return node;
   }
 
+  assignCoords() {
+    this.y = this.parent.y + (height / 12);
+    if (this === this.parent.right)
+      this.x = this.parent.x + (width / pow(2, this.height+1));
+    else
+      this.x = this.parent.x - (width / pow(2, this.height+1));
+  };
+
   preOrderTraverse(toggleValues) {
-    //if (!this.drawn)
-      this.draw(toggleValues);
-    if (this.left)
+
+   if (this.height > maxpath)
+     maxpath = this.height;
+
+    this.draw(toggleValues);
+
+    if (this.left) {
+      this.left.height = this.height + 1;
       this.left.preOrderTraverse(toggleValues);
-    if (this.right)
+    }
+    if (this.right) {
+      this.right.height = this.height + 1;
       this.right.preOrderTraverse(toggleValues);
+    }
   }
 
   inOrderTraverse() {
     if (this.left)
       this.left.inOrderTraverse();
-    //if (!this.drawn)
-      this.draw();
+    this.draw();
     if (this.right)
       this.right.inOrderTraverse();
   }
@@ -204,24 +224,27 @@ class Node {
       this.left.postOrderTraverse();
     if (this.right)
       this.right.postOrderTraverse();
-    //if (!this.drawn)
-      this.draw();
+    this.draw();
   }
 
   draw(toggleValues) {
-
     const radius = 20;
     stroke(100);
 
-    // This keeps track of right levels (coords update on deletion)
+    // Coords update on deletion (keeps track of right levels)
     if (this.parent && this.height - 1 !== this.parent.height) {
       this.height--;
-      this.y = this.parent.y + (height / 12);
-      if (this === this.parent.right)
-        this.x = this.parent.x + (width / pow(2, this.height+1));
-      else
-        this.x = this.parent.x - (width / pow(2, this.height+1));
+      this.assignCoords();
     }
+
+    // Coords update on rotation
+    if (this. parent && this.y !== this.parent.y + (height / 12))
+      this.assignCoords();
+
+      if (!this.parent) {
+        this.x = width / 2;
+        this.y = 30;
+      }
 
     // Exclude root (has no parent)
     if (this.height > 0)
@@ -239,11 +262,10 @@ class Node {
     text(this.key, this.x, this.y + 4);
     if (toggleValues) {
       if (this.parent && this.parent.right === this )
-        text(this.value, this.x + 50, this.y + 4);
+        text(`${this.value} : ${this.getBalance()}`, this.x + 60, this.y + 4);
       else
-        text(this.value, this.x - 50, this.y + 4);
+        text(`${this.value} : ${this.getBalance()}`, this.x - 60, this.y + 4);
     }
     strokeWeight(1);
-    //this.drawn = true;
   }
 }

@@ -3,37 +3,30 @@ class Tree {
   constructor() {
     this.root = null;
     this.height = 0;
-    this.nodes = [];
+    this.nodes = 0;
   }
 
   compare (a, b) { return a > b ? 1 : a < b ? -1 : 0 }
 
-  // get root() { return this.root }
-  //
-  // get treeHeight() { return this.height }
-  //
-  // set root(r) { this.root = r }
-  //
-  // set treeHeight(h) { this.height = h }
-
   insertNode(key, data) {
-    // Don't insert if it's duplicate
-    if (this.nodes.includes(key))
+
+    // Make sure key is not a string
+    key = parseInt(key);
+
+    // Don't insert if it's a duplicate
+    if (this.find(key))
       return 0;
-    // Keep track of nodes in an array
-    this.nodes.push(parseInt(key));
-    this.nodes.sort((a,b) => this.compare(a, b));
 
+    // Phase 1 - regular BST insertion
     let newNode = new Node(key, data);
-
-    // Phase 1 - regular PST insertion
     let parent = this.root;
 
     // When there's no root
     if (!parent) {
       this.root = newNode;
-      this.root.x = width / 2;
-      this.root.y = 30;
+      // this.root.x = width / 2;
+      // this.root.y = 30;
+      this.nodes++;
       this.height++;
       return this.root;
     }
@@ -44,8 +37,8 @@ class Tree {
       if (this.compare(key, parent.key) === -1) {
         if (!parent.left) {
           parent.left = newNode;
-          newNode.x = parent.x - (width / pow(2, newNode.height+2));
-          newNode.y = parent.y + (height / 12);
+          // newNode.x = parent.x - (width / pow(2, newNode.height+2));
+          // newNode.y = parent.y + (height / 12);
           newNode.parent = parent;
         }
         newNode.height++;
@@ -53,80 +46,53 @@ class Tree {
     } else {
         if (!parent.right) {
           parent.right = newNode;
-          newNode.x = parent.x + (width / pow(2, newNode.height+2));
-          newNode.y = parent.y + (height / 12);
+          // newNode.x = parent.x + (width / pow(2, newNode.height+2));
+          // newNode.y = parent.y + (height / 12);
           newNode.parent = parent;
         }
         newNode.height++;
         parent = parent.right;
       }
     }
-    //
-    // // Phase 2 - Rebalancing tree
-    // if (parent.balanceFactor)
-    //   parent.balanceFactor = 0;
-    // else {
-    //   if (parent.left === newNode)
-    //     parent.balanceFactor = 1;
-    //   else
-    //     parent.balanceFactor = -1;
-    //
-    //   let gParent = parent.parent;
-    //   let t =false;
-    //
-    //   while (gParent) {
-    //     if (gParent.balanceFactor) {
-    //       t = true;
-    //       break;
-    //     }
-    //
-    //     if (gParent.left === parent)
-    //       gParent.balanceFactor = 1;
-    //     else
-    //       gParent.balanceFactor = -1;
-    //
-    //     parent = gParent;
-    //     gParent = gParent.parent;
-    //   }
-    //
-    //   if (t) {
-    //     if (gParent.balanceFactor === 1) {
-    //       if (gParent.right === parent)
-    //         gParent.balanceFactor = 0;
-    //       else if (gParent.balanceFactor === -1)
-    //         gParent.rotateLR(this.root);
-    //       else
-    //         gParent.rotateLL(this.root);
-    //     }
-    //     else {
-    //       if (gParent.left === parent)
-    //         gParent.balanceFactor = 0;
-    //       else if (gParent.balanceFactor === 1)
-    //         gParent.rotateRL(this.root);
-    //       else
-    //         gParent.rotateRR(this.root);
-    //     }
-    //   }
-    // }
+    
+    // Phase 2 - Rebalancing tree
+    if (newNode.parent.parent) {
+      let gParent = newNode.parent.parent;
+      let balance = gParent.getBalance();
 
+      // Left Left Case
+      if (balance > 1 && key < gParent.left.key)
+        this.root = gParent.rotateLL(this.root);
+
+      // Right Right Case
+      else if (balance < -1 && key > gParent.right.key)
+        this.root = gParent.rotateRR(this.root);
+
+      // Left Right Case
+      else if (balance > 1 && key > gParent.left.key)
+        this.root = gParent.rotateLR(this.root);
+
+      // Right Left Case
+      else if (balance < -1 && key < gParent.right.key)
+        this.root = gParent.rotateRL(this.root);
+    }
+    // Keep track of number of nodes
+    this.nodes++;
+    // Re-render tree
     clear();
     background(51);
+    // Keep track of tree height
+    maxpath = 0;
     this.preOrder();
-  }
-
-  // Current node successor
-  minValueNode() {
-    var current = this.root;
-    while (current.left) {
-      current = current.left;
-    }
-    return current;
+    this.height = maxpath;
+    updateInfo();
+    return newNode;
   }
 
   removeNode(key) {
     let node = this.find(key);
-    let y = null; // Act as node
-    let z = null; // Act as new node child
+    let y = null; // Acts as node
+    let z = null; // Acts as new node child
 
     // If node has one or no children
     if (node) {
@@ -158,16 +124,25 @@ class Tree {
       // Couldn't just delete object in ES6
       delete y.key;
       delete y.value;
+    } else {
+      return 0;
     }
 
-    // Keep track of nodes in an array
-    this.nodes.splice(this.nodes.indexOf(key), 1);
+    // Keep track of number of nodes
+    this.nodes--;
+    // Re-render tree
     clear();
     background(51);
+    // Keep track of tree height
+    maxpath = 0;
     this.preOrder();
+    this.height = maxpath;
+    updateInfo();
+    return node;
   }
 
   find(nodeKey) {
+    // Start in the root
     let childNode = this.root;
 
     while (childNode && nodeKey !== childNode.key) {
@@ -180,7 +155,7 @@ class Tree {
     return childNode;
   }
 
-  preOrder() { this.root.preOrderTraverse() }
+  preOrder(toggleValues) { this.root.preOrderTraverse(toggleValues) }
 
   inOrder() { this.root.inOrderTraverse() }
 
