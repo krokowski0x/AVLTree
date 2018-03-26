@@ -1,5 +1,7 @@
 let previousKey = false;
 let toggleValues = false;
+let maxpath = 0;
+let maxH = 0;
 
 function setup() {
   // Width enough for 5 levels (32 leaves)
