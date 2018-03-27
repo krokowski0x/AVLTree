@@ -54,7 +54,7 @@ class Tree {
         parent = parent.right;
       }
     }
-    
+
     // Phase 2 - Rebalancing tree
     if (newNode.parent.parent) {
       let gParent = newNode.parent.parent;
@@ -121,9 +121,25 @@ class Tree {
       if (y !== node)
         node.key = y.key;
 
-      // Couldn't just delete object in ES6
-      delete y.key;
-      delete y.value;
+      while (y) {
+        let balance = y.getBalance();
+        // Left Left Case
+        if (balance > 1 && y.left.getBalance() >= 0)
+          this.root = y.rotateLL(this.root);
+
+        // Right Right Case
+        else if (balance < -1 && y.right.getBalance() <= 0)
+          this.root = y.rotateRR(this.root);
+
+        // Left Right Case
+        else if (balance > 1 && y.left.getBalance() < 0)
+          this.root = y.rotateLR(this.root);
+
+        // Right Left Case
+        else if (balance < -1 && y.right.getBalance() > 0)
+          this.root = y.rotateRL(this.root);
+        y = y.parent;
+      }
     } else {
       return 0;
     }
