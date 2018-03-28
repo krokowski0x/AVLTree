@@ -1,4 +1,4 @@
-# Project Title
+# AVL Tree
 
 Implementation of an AVL Tree in JS, made for university project.
 
