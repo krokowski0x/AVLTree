@@ -158,6 +158,7 @@ class Node {
     return root;
   }
 
+  // Min value node
   min() {
     let node = this;
 
@@ -167,6 +168,7 @@ class Node {
     return node;
   }
 
+  // Node successor
   next() {
     let node = this;
     let parent = null;
@@ -196,6 +198,7 @@ class Node {
 
   preOrderTraverse(toggleValues) {
 
+  // Update tree height
    if (this.height > maxpath)
      maxpath = this.height;
 
@@ -238,7 +241,7 @@ class Node {
     }
 
     // Coords update on rotation
-    if (this. parent && this.y !== this.parent.y + (height / 12))
+    if (this.parent)
       this.assignCoords();
 
       if (!this.parent) {
@@ -257,6 +260,7 @@ class Node {
 
     fill(255);
     textAlign(CENTER);
+    textStyle(BOLD);
     strokeWeight(0);
     textSize(16);
     text(this.key, this.x, this.y + 4);

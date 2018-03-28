@@ -29,13 +29,13 @@ h1 {
   margin: 0;
 }
 
+/* Toggle switch */
 p {
   grid-column: 2;
   grid-row: 1;
   margin: 2%;
+  font-weight: bold;
 }
-
-/* Toggle switch */
 
 .onoffswitch {
   grid-column: 3;
