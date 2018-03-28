@@ -53,23 +53,27 @@ class Tree {
     // Phase 2 - Rebalancing tree
     if (newNode.parent.parent) {
       let gParent = newNode.parent.parent;
-      let balance = gParent.getBalance();
+      while (gParent) {
+        let balance = gParent.getBalance();
 
-      // Left Left Case
-      if (balance > 1 && key < gParent.left.key)
-        this.root = gParent.rotateLL(this.root);
+        // Left Left Case
+        if (balance > 1 && key < gParent.left.key)
+          this.root = gParent.rotateLL(this.root);
 
-      // Right Right Case
-      else if (balance < -1 && key > gParent.right.key)
-        this.root = gParent.rotateRR(this.root);
+        // Right Right Case
+        else if (balance < -1 && key > gParent.right.key)
+          this.root = gParent.rotateRR(this.root);
 
-      // Left Right Case
-      else if (balance > 1 && key > gParent.left.key)
-        this.root = gParent.rotateLR(this.root);
+        // Left Right Case
+        else if (balance > 1 && key > gParent.left.key)
+          this.root = gParent.rotateLR(this.root);
 
-      // Right Left Case
-      else if (balance < -1 && key < gParent.right.key)
-        this.root = gParent.rotateRL(this.root);
+        // Right Left Case
+        else if (balance < -1 && key < gParent.right.key)
+          this.root = gParent.rotateRL(this.root);
+
+        gParent = gParent.parent;
+      }
     }
 
     this.nodes++;     // Keep track of number of nodes
