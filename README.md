@@ -10,7 +10,14 @@ It's been written based on **Object-Oriented Programming** principles.
 
 ### Prerequisites
 
-I have nodemon installed globally, so it's not appearing in dev dependencies.
+First, you have to have [node with npm](https://nodejs.org/en/) installed.
+Then, you have to install dependencies:
+
+```
+npm i
+```
+
+I also have nodemon installed globally, so it's not appearing in dev dependencies.
 For an app to work properly, you should run:
 
 ```
