@@ -6,6 +6,7 @@ class Tree {
     this.nodes = 0;
   }
 
+  // Will be used for comparing node keys
   compare (a, b) { return a > b ? 1 : a < b ? -1 : 0 }
 
   insertNode(key, data) {
@@ -24,8 +25,6 @@ class Tree {
     // When there's no root
     if (!parent) {
       this.root = newNode;
-      // this.root.x = width / 2;
-      // this.root.y = 30;
       this.nodes++;
       this.height++;
       return this.root;
@@ -37,8 +36,6 @@ class Tree {
       if (this.compare(key, parent.key) === -1) {
         if (!parent.left) {
           parent.left = newNode;
-          // newNode.x = parent.x - (width / pow(2, newNode.height+2));
-          // newNode.y = parent.y + (height / 12);
           newNode.parent = parent;
         }
         newNode.height++;
@@ -46,8 +43,6 @@ class Tree {
     } else {
         if (!parent.right) {
           parent.right = newNode;
-          // newNode.x = parent.x + (width / pow(2, newNode.height+2));
-          // newNode.y = parent.y + (height / 12);
           newNode.parent = parent;
         }
         newNode.height++;
@@ -76,32 +71,31 @@ class Tree {
       else if (balance < -1 && key < gParent.right.key)
         this.root = gParent.rotateRL(this.root);
     }
-    // Keep track of number of nodes
-    this.nodes++;
-    // Re-render tree
+
+    this.nodes++;     // Keep track of number of nodes
     clear();
     background(51);
-    // Keep track of tree height
-    maxpath = 0;
-    this.preOrder();
+    maxpath = 0;     // Keep track of tree height
+    this.preOrder(); // Re-render tree
     this.height = maxpath;
     updateInfo();
     return newNode;
   }
 
   removeNode(key) {
+    // Phase 1 - regular BST deletion
     let node = this.find(key);
-    let y = null; // Acts as node
-    let z = null; // Acts as new node child
+    let y = null; // Acts as a node
+    let z = null; // Acts as a new node's child
 
-    // If node has one or no children
+    // If node has one or no children, y becomes node
     if (node) {
       if (!node.left || !node.right)
         y = node;
       else
         y = node.next();
 
-      // Append new child
+      // Append new child, which is z
       if (y.left)
         z = y.left;
       else
@@ -110,7 +104,6 @@ class Tree {
       // Swap these nodes
       if (z)
         z.parent = y.parent;
-
       if (!y.parent)
         this.root = z;
       else if (y === y.parent.left)
@@ -121,6 +114,7 @@ class Tree {
       if (y !== node)
         node.key = y.key;
 
+      // Phase 2 - Rebalancing tree
       while (y) {
         let balance = y.getBalance();
         // Left Left Case
@@ -141,17 +135,14 @@ class Tree {
         y = y.parent;
       }
     } else {
-      return 0;
+      return 0; // Do nothing if the node doesn't exists
     }
 
-    // Keep track of number of nodes
-    this.nodes--;
-    // Re-render tree
+    this.nodes--;     // Keep track of number of nodes
     clear();
     background(51);
-    // Keep track of tree height
-    maxpath = 0;
-    this.preOrder();
+    maxpath = 0;     // Keep track of tree height
+    this.preOrder(); // Re-render tree
     this.height = maxpath;
     updateInfo();
     return node;
