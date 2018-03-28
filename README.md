@@ -18,7 +18,7 @@ Then, you have to install dependencies:
 npm i
 ```
 
-I also have nodemon installed globally, which resterts server on changes.
+I also have nodemon installed globally, which restarts server if you make some changes.
 It's not appearing in dev dependencies, so for an app to work properly, you should run:
 
 ```
@@ -63,5 +63,5 @@ App should be running in your browser. Give it a try!
 
 ## Acknowledgments
 
-* Shoutout to one an only [Daniel Shiffman](https://github.com/shiffman), from whom I borrowed an approach how to draw a BST (he's an actual genius, check him out)
+* Shoutout to one an only [Daniel Shiffman](https://github.com/shiffman) (an actual js genius), from whom I borrowed an approach how to draw a BST
 * Shoutout to [I LO w Tarnowie](http://eduinf.waw.pl/inf/alg/001_search/index.php) which has the best explanation of algorithms and basic data structures available (Polish only)
