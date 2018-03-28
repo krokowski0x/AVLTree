@@ -38,8 +38,7 @@ document.getElementsByClassName('insertBtn')[0]
 
     let key = document.getElementsByClassName('key')[0].value;
     let val = document.getElementsByClassName('value')[0].value;
-    if (typeof key === 'Number')
-      tree.insertNode(key, val);
+    tree.insertNode(key, val);
 
     // Clear input fields
     document.getElementsByClassName('key')[0].value = '';
