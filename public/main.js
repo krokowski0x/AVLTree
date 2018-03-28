@@ -12,7 +12,11 @@ function setup() {
   // Fill tree with random nodes
   tree = new Tree();
   for (let i = 0; i < 15; i++) {
-    tree.insertNode(floor(random(0, 100)), 'node');
+    try {
+      tree.insertNode(floor(random(0, 100)), 'node');
+    } catch (e) {
+      location.reload();
+    }
   }
 }
 
@@ -34,7 +38,8 @@ document.getElementsByClassName('insertBtn')[0]
 
     let key = document.getElementsByClassName('key')[0].value;
     let val = document.getElementsByClassName('value')[0].value;
-    tree.insertNode(key, val);
+    if (typeof key === 'Number')
+      tree.insertNode(key, val);
 
     // Clear input fields
     document.getElementsByClassName('key')[0].value = '';
