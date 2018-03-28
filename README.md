@@ -30,7 +30,7 @@ And also change start script in **package.json** to:
 ```
 "scripts": {
   ...
-  "start": "**nodemon** server.js"
+  "start": "nodemon server.js"
 }
 ```
 
