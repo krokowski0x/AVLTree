@@ -13,6 +13,8 @@ class Tree {
 
     // Make sure key is not a string
     key = parseInt(key);
+    if (isNaN(key))
+      return 0;
 
     // Don't insert if it's a duplicate
     if (this.find(key))
