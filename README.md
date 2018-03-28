@@ -1,6 +1,7 @@
 # AVL Tree
 
 Implementation of an AVL Tree in JS, made for university project.
+**Live version** - https://pamsi-avl-tree.herokuapp.com/
 
 ## Brief description
 
@@ -10,21 +11,30 @@ It's been written based on **Object-Oriented Programming** principles.
 
 ### Prerequisites
 
-First, you have to have [node with npm](https://nodejs.org/en/) installed.
+If you want to make some changes, first you have to have [node with npm](https://nodejs.org/en/) installed.
 Then, you have to install dependencies:
 
 ```
 npm i
 ```
 
-I also have nodemon installed globally, so it's not appearing in dev dependencies.
-For an app to work properly, you should run:
+I also have nodemon installed globally, which resterts server on changes.
+It's not appearing in dev dependencies, so for an app to work properly, you should run:
 
 ```
 npm i nodemon -g
 ```
 
-### Installing
+And also change start script in **package.json** to:
+
+```
+"scripts": {
+  ...
+  "start": "**nodemon** server.js"
+}
+```
+
+### Installation
 
 After cloning this repository, in the project directory, you should run:
 
@@ -44,6 +54,7 @@ App should be running in your browser. Give it a try!
 
 * [p5.js](https://p5js.org/) - Drawing JS library based on [Processing](https://processing.org/)
 * [Express](https://expressjs.com/) - Web framework for [Node.js](https://nodejs.org/en/)
+* [Heroku](https://www.heroku.com/) - Cloud platform which can run Node.js
 
 ## Further development
 
@@ -52,5 +63,5 @@ App should be running in your browser. Give it a try!
 
 ## Acknowledgments
 
-* Shoutout to one an only [Daniel Shiffman](https://github.com/shiffman), from whom I borrowed an approach how to draw a BST
+* Shoutout to one an only [Daniel Shiffman](https://github.com/shiffman), from whom I borrowed an approach how to draw a BST (he's an actual genius, check him out)
 * Shoutout to [I LO w Tarnowie](http://eduinf.waw.pl/inf/alg/001_search/index.php) which has the best explanation of algorithms and basic data structures available (Polish only)
