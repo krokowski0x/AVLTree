@@ -1,7 +1,7 @@
 {
   "name": "avltree",
   "version": "1.0.0",
-  "description": "",
+  "description": "Implementation of an AVL Tree in JS, made for university project.",
   "main": "server.js",
   "directories": {
     "example": "examples"
