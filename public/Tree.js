@@ -4,10 +4,10 @@ class Tree {
     this.root = null;
     this.height = 0;
     this.nodes = 0;
-  }
+  };
 
   // Will be used for comparing node keys
-  compare (a, b) { return a > b ? 1 : a < b ? -1 : 0 }
+  compare (a, b) { return a > b ? 1 : a < b ? -1 : 0 };
 
   insertNode(key, data) {
 
@@ -86,7 +86,7 @@ class Tree {
     this.height = maxpath;
     updateInfo();
     return newNode;
-  }
+  };
 
   removeNode(key) {
     // Phase 1 - regular BST deletion
@@ -152,7 +152,7 @@ class Tree {
     this.height = maxpath;
     updateInfo();
     return node;
-  }
+  };
 
   find(nodeKey) {
     // Start in the root
@@ -166,12 +166,12 @@ class Tree {
     }
 
     return childNode;
-  }
+  };
 
-  preOrder(toggleValues) { this.root.preOrderTraverse(toggleValues) }
+  preOrder(toggleValues) { this.root.preOrderTraverse(toggleValues) };
 
-  inOrder() { this.root.inOrderTraverse() }
+  inOrder() { this.root.inOrderTraverse() };
 
-  postOrder() { this.root.postOrderTraverse() }
+  postOrder() { this.root.postOrderTraverse() };
 
-}
+};

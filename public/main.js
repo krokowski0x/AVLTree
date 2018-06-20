@@ -1,6 +1,6 @@
-let previousKey = false; // Helper for finding a node
-let toggleValues = false; // Helper for toggle button
-let maxpath = 0;  // Helpers for getting tree/node height
+let previousKey = false;   // Helper variable for finding a node
+let toggleValues = false;  // Helper variablefor toggle button
+let maxpath = 0;           // Helpers for getting tree/node height
 let maxH = 0;
 
 function setup() {
@@ -15,16 +15,18 @@ function setup() {
     try {
       tree.insertNode(floor(random(0, 100)), 'node');
     } catch (e) {
+      // One in about 100 times there's some weird error
+      // occuring in here. When it happens, quickly reload page
       location.reload();
     }
   }
 }
 
-function draw() {}  // Required bo p5, bu not used here
+function draw() {}  // Required by p5, but not used here
 
 // Event handlers
 document.getElementsByClassName('onoffswitch-label')[0]
-  .addEventListener('click', function(e) {
+  .addEventListener('click', (e) => {
     toggleValues = !toggleValues;
     clear();
     background(51);
@@ -32,12 +34,12 @@ document.getElementsByClassName('onoffswitch-label')[0]
   });
 
 document.getElementsByClassName('insertBtn')[0]
-  .addEventListener('click', function(e) {
-
+  .addEventListener('click', (e) => {
     e.preventDefault();
 
     let key = document.getElementsByClassName('key')[0].value;
     let val = document.getElementsByClassName('value')[0].value;
+
     tree.insertNode(key, val);
 
     // Clear input fields
@@ -46,10 +48,11 @@ document.getElementsByClassName('insertBtn')[0]
   });
 
 document.getElementsByClassName('removeBtn')[0]
-  .addEventListener('click', function(e) {
+  .addEventListener('click', (e) => {
     e.preventDefault();
 
     let key = parseInt(document.getElementsByClassName('key')[1].value);
+
     tree.removeNode(key);
 
     // Clear input field
@@ -57,7 +60,7 @@ document.getElementsByClassName('removeBtn')[0]
   });
 
 document.getElementsByClassName('findBtn')[0]
-  .addEventListener('click', function(e) {
+  .addEventListener('click', (e) => {
     e.preventDefault();
 
     // Clear previous highlights
@@ -82,8 +85,7 @@ document.getElementsByClassName('findBtn')[0]
   });
 
   document.getElementsByClassName('traverseBtn')[0]
-    .addEventListener('click', function(e) {
-
+    .addEventListener('click', (e) => {
       e.preventDefault();
     });
 

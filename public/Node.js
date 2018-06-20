@@ -10,8 +10,7 @@ class Node {
     this.value = value;
     this.x = x;
     this.y = y;
-  }
-
+  };
 
   getHeight() {
     if (this.height > maxH)
@@ -64,7 +63,7 @@ class Node {
     }
 
     return root;
-  }
+  };
 
   rotateRR(root) {
     let rightNode = this.right;
@@ -92,7 +91,7 @@ class Node {
     }
 
     return root;
-  }
+  };
 
   rotateRL(root) {
     let rightNode = this.right;
@@ -124,7 +123,7 @@ class Node {
       root = tempNode;
 
     return root;
-  }
+  };
 
   rotateLR(root) {
     let leftNode = this.left;
@@ -156,7 +155,7 @@ class Node {
       root = tempNode;
 
     return root;
-  }
+  };
 
   // Min value node
   min() {
@@ -186,7 +185,7 @@ class Node {
       }
     }
     return node;
-  }
+  };
 
   assignCoords() {
     this.y = this.parent.y + (height / 12);
@@ -212,7 +211,7 @@ class Node {
       this.right.height = this.height + 1;
       this.right.preOrderTraverse(toggleValues);
     }
-  }
+  };
 
   inOrderTraverse() {
     if (this.left)
@@ -220,7 +219,7 @@ class Node {
     this.draw();
     if (this.right)
       this.right.inOrderTraverse();
-  }
+  };
 
   postOrderTraverse() {
     if (this.left)
@@ -228,7 +227,7 @@ class Node {
     if (this.right)
       this.right.postOrderTraverse();
     this.draw();
-  }
+  };
 
   draw(toggleValues) {
     const radius = 20;
@@ -271,5 +270,5 @@ class Node {
         text(`${this.value} : ${this.getBalance()}`, this.x - 60, this.y + 4);
     }
     strokeWeight(1);
-  }
-}
+  };
+};
