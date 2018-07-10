@@ -9,6 +9,8 @@ App lets you **insert**, **remove** and **find** a node in AVL Tree which is a t
 It also displays some useful info about the tree and has an implementation of Depth-First Searches.
 It's been written based on **Object-Oriented Programming** principles.
 
+![](AVLTree.png)
+
 ### Prerequisites
 
 If you want to make some changes, first you have to have [Node with npm](https://nodejs.org/en/) installed.
